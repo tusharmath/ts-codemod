@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import * as path from 'path'
 import * as yargs from 'yargs'
-import * as R from 'ramda'
 import {transformFile} from './transform-file'
 
 const LOG = console.log
@@ -17,14 +16,19 @@ const {transformation, write, _: sourceFiles} = yargs
     describe: 'The name of the transformation',
     demandOption: true
   })
+  .option('param', {
+    alias: 'p',
+    describe: 'Transformation specific params',
+    demandOption: true
+  })
   .boolean('w')
   .string('t').argv
 
 async function main() {
-  const {default: transformationFunction} = await import(path.resolve(
-    process.cwd(),
-    transformation
-  ))
+  const transformationPath = transformation.match(/\.ts$/)
+    ? path.resolve(process.cwd(), transformation)
+    : path.resolve(__dirname, '../transformations', transformation)
+  const {default: transformationFunction} = await import(transformationPath)
 
   const createSourceFile = async (path: string) => {
     const params = {write, path}

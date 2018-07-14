@@ -20,7 +20,7 @@ npm i -g ts-codemod
 A typical command looks like -
 
 ```bash
-ts-codemod --write --transformation=[transformation name]  --params.[param name]=[param value] [glob pattern]
+ts-codemod --write --transformation=[transformation name]  --param.[param name]=[param value] [glob pattern]
 ```
 
 Say I want to —
@@ -45,7 +45,7 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 | ------------------------------------ | --------------------------------------- | --------- |
 | `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
 | `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
-| `--params` `-p` ( _optional_)        | Additional transformation specific args |           |
+| `--param` `-p` ( _optional_)        | Additional transformation specific args |           |
 
 ## Custom transformation
 
