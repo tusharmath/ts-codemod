@@ -7,6 +7,7 @@ Code-Modifier for Typescript based projects
 - [Installation](#installation)
 - [Command Line Usage](#command-line-usage)
 - [CLI Arguments](#cli-arguments)
+- [Builtin Transformations](#builtin-transformations)
 - [Custom Transformation](#custom-transformation)
 
 ## Installation
@@ -45,7 +46,15 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 | ------------------------------------ | --------------------------------------- | --------- |
 | `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
 | `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
-| `--param` `-p` ( _optional_)        | Additional transformation specific args |           |
+| `--param` `-p` ( _optional_)         | Additional transformation specific args |           |
+
+## Builtin Transformations
+
+| **Transformation**      |                                       |
+| ----------------------- | ------------------------------------- |
+| [normalize-import-path] | Converts relative path to module path |
+
+[normalize-import-path]: https://github.com/tusharmath/ts-codemod/transformations/normalize-import-path
 
 ## Custom transformation
 
