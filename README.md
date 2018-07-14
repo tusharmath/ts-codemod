@@ -50,11 +50,13 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 
 ## Builtin Transformations
 
-| **Transformation**      |                                       |
-| ----------------------- | ------------------------------------- |
-| [normalize-import-path] | Converts relative path to module path |
+| **Transformation**      |                                                     |
+| ----------------------- | --------------------------------------------------- |
+| [normalize-import-path] | Converts relative path to module path               |
+| [shift-imports]         | Shifts import specifiers from one module to another |
 
 [normalize-import-path]: https://github.com/tusharmath/ts-codemod/blob/master/transformations/normalize-import-path.ts
+[shift-imports]: https://github.com/tusharmath/ts-codemod/blob/master/transformations/shift-imports.ts
 
 ## Custom transformation
 
