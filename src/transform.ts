@@ -1,5 +1,6 @@
 import * as ts from 'typescript'
 import {forEachNode} from './for-each-node'
+const debug = require('debug')('ts-codemod')
 
 export abstract class Transformation<T = {}> {
   constructor(
@@ -41,10 +42,13 @@ export const transform = <T>(
         context,
         transformationParams
       )
+      debug(`PARAMS:`, transformationParams)
       const visitor: ts.Visitor = (node: ts.Node) => {
+        debug(`NODE: ${node.kind}`)
         const visitResult = transformer.visit(node)
         return visitResult ? forEachNode(visitor, visitResult, context) : node
       }
+      debug(`FILE: ${params.path}`)
       return ts.visitEachChild(
         transformer.visit(file) as ts.SourceFile,
         visitor,
