@@ -8,7 +8,6 @@ Code-Modifier for Typescript based projects
 - [Command Line Usage](#command-line-usage)
 - [CLI Arguments](#cli-arguments)
 - [Custom Transformation](#custom-transformation)
-- [Running a custom transformation](#running-a-custom-transformation)
 
 ## Installation
 
@@ -18,10 +17,10 @@ npm i -g ts-codemod
 
 ## Command Line Usage
 
-A typical command looks like —
+A typical command looks like -
 
 ```bash
-ts-codemod --write --transformation [transformation name]  --params.[param name] [param value] [glob pattern]
+ts-codemod --write --transformation=[transformation name]  --params.[param name]=[param value] [glob pattern]
 ```
 
 Say I want to —
@@ -50,7 +49,7 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 
 ## Custom transformation
 
-A custom transformation can be implemented via extending the `Transformation` class.
+A custom transformation (`my-custom-transformation.ts`) can be implemented via extending the `Transformation` class.
 
 ```ts
 import * as ts from 'typescript'
@@ -64,7 +63,7 @@ export default class MyCustomTransformation extends Transformation {
 }
 ```
 
-## Running a custom transformation
+It can then be executed as —
 
 ```bash
 ts-codemod -t ./my-custom-transformation.ts src/**.ts
