@@ -54,7 +54,7 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 | ----------------------- | ------------------------------------- |
 | [normalize-import-path] | Converts relative path to module path |
 
-[normalize-import-path]: https://github.com/tusharmath/ts-codemod/transformations/normalize-import-path
+[normalize-import-path]: https://github.com/tusharmath/ts-codemod/blob/master/transformations/normalize-import-path.ts
 
 ## Custom transformation
 
