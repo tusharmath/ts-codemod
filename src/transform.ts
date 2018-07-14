@@ -44,7 +44,6 @@ export const transform = <T>(
       )
       debug(`PARAMS:`, transformationParams)
       const visitor: ts.Visitor = (node: ts.Node) => {
-        debug(`NODE: ${node.kind}`)
         const visitResult = transformer.visit(node)
         return visitResult ? forEachNode(visitor, visitResult, context) : node
       }
