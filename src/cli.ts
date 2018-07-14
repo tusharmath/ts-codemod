@@ -42,6 +42,6 @@ async function main() {
 }
 
 main().catch(err => {
-  LOG(chalk.red(err))
+  console.error(err)
   process.exit(1)
 })
