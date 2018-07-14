@@ -2,7 +2,7 @@
  * Created by tushar on 01/06/18
  */
 import * as fs from 'fs-extra'
-import {CodeTransformerCtor, transform} from './transform'
+import {TransformationCtor, transform} from './transform'
 
 const DEFAULT_PARAMS = {
   write: false
@@ -14,7 +14,7 @@ export type CodeModParams = {
 }
 
 export async function transformFile<Params>(
-  transformer: CodeTransformerCtor<Params>,
+  transformer: TransformationCtor<Params>,
   nParams: CodeModParams,
   transformationParams: Params
 ) {

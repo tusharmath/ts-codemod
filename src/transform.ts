@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import {forEachNode} from './for-each-node'
 
-export abstract class Transformation<T> {
+export abstract class Transformation<T = {}> {
   constructor(
     readonly path: string,
     readonly ctx: ts.TransformationContext,

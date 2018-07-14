@@ -49,6 +49,10 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 
 ## Custom transformation
 
+Writing a custom transformation isn't very easy and one needs to understand how typescript internally converts plain string to an AST.
+
+A good starter could be to checkout the [transformations] directory. Those transformations are written for a varied level of complexity.
+
 A custom transformation (`my-custom-transformation.ts`) can be implemented via extending the `Transformation` class.
 
 ```ts
@@ -59,6 +63,8 @@ import {Transformation} from 'ts-codemod'
 export default class MyCustomTransformation extends Transformation {
   apply(node: ts.Node): ts.VisitResult<ts.Node> {
     // write your implementation here
+
+    return node // will apply no-change
   }
 }
 ```
