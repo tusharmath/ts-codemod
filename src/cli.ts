@@ -5,7 +5,7 @@ import {transformFile} from './transform-file'
 
 const LOG = console.log
 
-const {transformation, write, _: sourceFiles} = yargs
+const {transformation, write, _: sourceFiles, param} = yargs
   .usage('Usage: $0 -t [transformation-name] [glob pattern]')
   .option('write', {
     alias: 'w',
@@ -18,8 +18,7 @@ const {transformation, write, _: sourceFiles} = yargs
   })
   .option('param', {
     alias: 'p',
-    describe: 'Transformation specific params',
-    demandOption: true
+    describe: 'Transformation specific params'
   })
   .boolean('w')
   .string('t').argv
@@ -31,11 +30,10 @@ async function main() {
   const {default: transformationFunction} = await import(transformationPath)
 
   const createSourceFile = async (path: string) => {
-    const params = {write, path}
     const {content} = await transformFile(
       transformationFunction,
-      params,
-      yargs.argv
+      {write, path},
+      param
     )
     LOG(chalk.green(path))
     if (!write) LOG(chalk.white(content))
