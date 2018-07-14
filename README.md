@@ -1,4 +1,4 @@
-# ts-codemod
+# ts-codemod [![Build Status](https://travis-ci.com/tusharmath/ts-codemod.svg?branch=master)](https://travis-ci.com/tusharmath/ts-codemod)
 
 Code-Modifier for Typescript based projects
 
