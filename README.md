@@ -2,14 +2,14 @@
 
 Code-Modifier for Typescript based projects.
 
-# Index
+## Index
 
 - [Installation](#installation)
 - [Command Line Usage](#command-line-usage)
-- [CLI Arguments](#cli-arguments)
-- [Builtin Transformations](https://github.com/tusharmath/ts-codemod/blob/master/CODEMOD.md)
+- [Example](#example)
 - [Custom Transformation](#custom-transformation)
 - [Post Transformation](#post-transformation)
+- [Builtin Transformations](https://github.com/tusharmath/ts-codemod/blob/master/CODEMOD.md)
 
 ## Installation
 
@@ -22,26 +22,32 @@ npm i -g ts-codemod
 A typical command looks like -
 
 ```bash
-ts-codemod --write [glob pattern]
+ts-codemod --transformation [transformation name] --params [transformation params] --write [glob pattern]
 ```
 
-So say I want to —
+| **Argument**                         | **Purpose**                             | **Value** |
+| ------------------------------------ | --------------------------------------- | --------- |
+| `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
+| `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
+| `--params` `-p` ( _optional_)        | Additional transformation specific args |           |
+
+## Example
+
+So lets say I want to update the import statements throughout the application from something like —
 
 ```ts
-// convert something like —
 import * as components from '../../../component'
+```
 
-// to a module path like —
+to something like —
+
+```ts
 import * as components from 'component'
 ```
 
-I can use the [normalize-import-path] transformation to achieve this —
+Here above I have removed the unnecessary `../../../` from the import statement. To achieve the above goal I can use the [normalize-import-path] transformation.
 
-```bash
-ts-codemod --transformation normalize-import-path --params.module=component --write src/**/*.ts
-```
-
-Transformations in general requires a lot of complicated params and configurations. These configurations can be loaded via a `.tscodemodrc` file —
+1.  Create a `.tscodemodrc` file
 
 ```json
 {
@@ -55,23 +61,23 @@ Transformations in general requires a lot of complicated params and configuratio
 }
 ```
 
+2.  Run the code mod.
+
 ```bash
 ts-codemod --write src/**/*.ts
 ```
 
-## CLI Arguments
+Alternatively you can also pass all the arguments without creating a `.tscodemodrc` file —
 
-| **Argument**                         | **Purpose**                             | **Value** |
-| ------------------------------------ | --------------------------------------- | --------- |
-| `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
-| `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
-| `--params` `-p` ( _optional_)        | Additional transformation specific args |           |
+```bash
+ts-codemod --transformation normalize-import-path --params.module=component --write src/**/*.ts
+```
 
 ## Custom transformation
 
 Writing a custom transformation isn't very easy and one needs to understand how typescript internally converts plain string to an AST.
 
-A good starter could be to checkout the [transformations] directory. Those transformations are written for a varied level of complexity. Also checkout the [AST Explorer](https://astexplorer.net/) website.
+A good starter could be to checkout the [transformations] directory. Those transformations are written for a varied level of complexity. Also checkout the [AST Explorer](https://astexplorer.net/) website to get an understanding of ASTs in general.
 
 A custom transformation (`my-custom-transformation.ts`) can be implemented via extending the `Transformation` class.
 
@@ -83,7 +89,6 @@ import {Transformation} from 'ts-codemod'
 export default class MyCustomTransformation extends Transformation {
   apply(node: ts.Node): ts.VisitResult<ts.Node> {
     // write your implementation here
-
     return node // will apply no-change
   }
 }
