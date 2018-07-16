@@ -1,13 +1,13 @@
 # ts-codemod [![Build Status](https://travis-ci.com/tusharmath/ts-codemod.svg?branch=master)](https://travis-ci.com/tusharmath/ts-codemod)
 
-Code-Modifier for Typescript based projects
+Code-Modifier for Typescript based projects.
 
 # Index
 
 - [Installation](#installation)
 - [Command Line Usage](#command-line-usage)
 - [CLI Arguments](#cli-arguments)
-- [Builtin Transformations](#builtin-transformations)
+- [Builtin Transformations](https://github.com/tusharmath/ts-codemod/blob/master/CODEMOD.md)
 - [Custom Transformation](#custom-transformation)
 - [Post Transformation](#post-transformation)
 
@@ -48,16 +48,6 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 | `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
 | `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
 | `--param` `-p` ( _optional_)         | Additional transformation specific args |           |
-
-## Builtin Transformations
-
-| **Transformation**      |                                                     |
-| ----------------------- | --------------------------------------------------- |
-| [normalize-import-path] | Converts relative path to module path               |
-| [shift-imports]         | Shifts import specifiers from one module to another |
-
-[normalize-import-path]: https://github.com/tusharmath/ts-codemod/blob/master/transformations/normalize-import-path.ts
-[shift-imports]: https://github.com/tusharmath/ts-codemod/blob/master/transformations/shift-imports.ts
 
 ## Custom transformation
 
