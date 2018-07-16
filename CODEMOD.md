@@ -19,15 +19,17 @@ import {a, b, c} from '../../../abc'
 import {a, b, c} from 'abc'
 ```
 
-**Usage:**
+**tscodemodrc:**
 
-```bash
-ts-codemod -t normalize-import-path --param.module="abc" **/*.ts
+```json
+{
+  "name": "normalize-import-path",
+  "params": {
+    // name of the module
+    "module": "abc"
+  }
+}
 ```
-
-| Params   | Type     |                                              |
-| -------- | -------- | -------------------------------------------- |
-| `module` | `string` | Name of the module, `abc` in the above case. |
 
 ## Shift Imports
 
@@ -46,14 +48,21 @@ import {a, b} from 'ab'
 import {x, xx} from 'x'
 ```
 
-**Usage:**
+**tscodemodrc:**
 
-```bash
-ts-codemod -t shift-imports --param.from 'ab' --param.to: 'x' --param.imports 'x' --param.imports 'xx' **/*.ts
+```json
+{
+  "name": "shift-imports",
+  "params": {
+
+    // name of the source module
+    "from": "ab",
+
+    // name of the target module
+    "to": "x",
+
+    // all the import specifiers that should be migrated
+    "imports": ["x, "xx"]
+  }
+}
 ```
-
-| Params    | Type       |                               |
-| --------- | ---------- | ----------------------------- |
-| `from`    | `string`   | The name of the source module |
-| `to`      | `string`   | The name of the target module |
-| `imports` | `string[]` | The name of the source module |
