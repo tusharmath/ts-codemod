@@ -9,6 +9,7 @@ Code-Modifier for Typescript based projects
 - [CLI Arguments](#cli-arguments)
 - [Builtin Transformations](#builtin-transformations)
 - [Custom Transformation](#custom-transformation)
+- [Post Transformation](#post-transformation)
 
 ## Installation
 
@@ -85,3 +86,14 @@ It can then be executed as —
 ```bash
 ts-codemod -t ./my-custom-transformation.ts src/**.ts
 ```
+
+## Post Transformation
+
+1.  Life can't be that simple right? Running transformations will generally ruin the formatting of your files. A recommended way to solve that problem is by using [Prettier].
+2.  Even after running prettier its possible to have unnecessary new lines added/removed. This can be solved by ignoring white spaces while staging the changes in `git`.
+
+```bash
+git diff --ignore-black-lines | git add --cached
+```
+
+[prettier]: https://prettier.io
