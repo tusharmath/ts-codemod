@@ -45,7 +45,7 @@ to something like —
 import * as components from 'component'
 ```
 
-Here above I have removed the unnecessary `../../../` from the import statement. To achieve the above goal I can use the [normalize-import-path] transformation.
+Here I have removed the unnecessary `../../../` from the import statement. To achieve this goal I can use the [normalize-import-path] transformation.
 
 1.  Create a `.tscodemodrc` file
 
