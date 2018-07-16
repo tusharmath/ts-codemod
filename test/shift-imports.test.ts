@@ -14,11 +14,12 @@ describe('shift-imports', () => {
     import {b, bb, bbb, bbbb, bbbbb} from "b";
     `)
 
-    const actual = transform(
-      ShiftImports,
-      {content: input, path: './src/file.ts'},
-      {from: 'a', to: 'x', imports: ['x', 'xx']}
-    )
+    const actual = transform({
+      transformationCtor: ShiftImports,
+      content: input,
+      path: './src/file.ts',
+      params: {from: 'a', to: 'x', imports: ['x', 'xx']}
+    })
 
     assert.strictEqual(actual, expected)
   })
@@ -33,11 +34,12 @@ describe('shift-imports', () => {
     import {b, bb, bbb, bbbb, bbbbb} from "b";
     `)
 
-    const actual = transform(
-      ShiftImports,
-      {content: input, path: './src/file.ts'},
-      {from: 'a', to: 'x', imports: ['x', 'xx']}
-    )
+    const actual = transform({
+      transformationCtor: ShiftImports,
+      content: input,
+      path: './src/file.ts',
+      params: {from: 'a', to: 'x', imports: ['x', 'xx']}
+    })
 
     assert.strictEqual(actual, expected)
   })
@@ -51,11 +53,12 @@ describe('shift-imports', () => {
     import {b, bb, bbb, bbbb, bbbbb} from "b";
     `)
 
-    const actual = transform(
-      ShiftImports,
-      {content: input, path: './src/file.ts'},
-      {from: 'a', to: 'x', imports: ['x', 'xx']}
-    )
+    const actual = transform({
+      transformationCtor: ShiftImports,
+      content: input,
+      path: './src/file.ts',
+      params: {from: 'a', to: 'x', imports: ['x', 'xx']}
+    })
 
     assert.strictEqual(actual, expected)
   })

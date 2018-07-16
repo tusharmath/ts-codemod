@@ -12,7 +12,7 @@ export abstract class Transformation<T = {}> {
   abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
 }
 
-export type TransformationCtor<Params> = {
+export type TransformationCtor<Params = {}> = {
   new (
     path: string,
     ctx: ts.TransformationContext,
@@ -20,34 +20,33 @@ export type TransformationCtor<Params> = {
   ): Transformation<Params>
 }
 
+export type TransformOptions<Params> = {
+  content: string
+  path: string
+  transformationCtor: TransformationCtor<Params>
+  params: Params
+}
+
 /**
  * Takes in a transformer + content and path and return a new content
  */
-export const transform = <T>(
-  transformerCtor: TransformationCtor<T>,
-  params: {content: string; path: string},
-  transformationParams: T
-) => {
+export const transform = <Params>(o: TransformOptions<Params>) => {
   const sourceFile = ts.createSourceFile(
-    params.path,
-    params.content,
+    o.path,
+    o.content,
     ts.ScriptTarget.ES2017,
     true
   )
 
   const transformed = ts.transform(sourceFile, [
     (context: ts.TransformationContext) => (file: ts.SourceFile) => {
-      const transformer = new transformerCtor(
-        params.path,
-        context,
-        transformationParams
-      )
-      debug(`PARAMS:`, transformationParams)
+      const transformer = new o.transformationCtor(o.path, context, o.params)
+      debug(`PARAMS:`, o.params)
       const visitor: ts.Visitor = (node: ts.Node) => {
         const visitResult = transformer.visit(node)
         return visitResult ? forEachNode(visitor, visitResult, context) : node
       }
-      debug(`FILE: ${params.path}`)
+      debug(`FILE: ${o.path}`)
       return ts.visitEachChild(
         transformer.visit(file) as ts.SourceFile,
         visitor,

@@ -22,10 +22,10 @@ npm i -g ts-codemod
 A typical command looks like -
 
 ```bash
-ts-codemod --write --transformation=[transformation name]  --param.[param name]=[param value] [glob pattern]
+ts-codemod --write [glob pattern]
 ```
 
-Say I want to —
+So say I want to —
 
 ```ts
 // convert something like —
@@ -38,7 +38,25 @@ import * as components from 'component'
 I can use the [normalize-import-path] transformation to achieve this —
 
 ```bash
-ts-codemod --write --transformation normalize-import-path  --params.moduleName=component src/**/*.ts
+ts-codemod --transformation normalize-import-path --params.module=component --write src/**/*.ts
+```
+
+Transformations in general requires a lot of complicated params and configurations. These configurations can be loaded via a `.tscodemodrc` file —
+
+```json
+{
+  // name of the transformation
+  "transformation": "normalize-import-path",
+
+  // transformation params
+  "params": {
+    "module": "component"
+  }
+}
+```
+
+```bash
+ts-codemod --write src/**/*.ts
 ```
 
 ## CLI Arguments
@@ -47,13 +65,13 @@ ts-codemod --write --transformation normalize-import-path  --params.moduleName=c
 | ------------------------------------ | --------------------------------------- | --------- |
 | `--write` `-w` (_optional_)          | Writes back to the file                 | `false`   |
 | `--transformation` `-t` (_required_) | Name of the transformation or file path |           |
-| `--param` `-p` ( _optional_)         | Additional transformation specific args |           |
+| `--params` `-p` ( _optional_)        | Additional transformation specific args |           |
 
 ## Custom transformation
 
 Writing a custom transformation isn't very easy and one needs to understand how typescript internally converts plain string to an AST.
 
-A good starter could be to checkout the [transformations] directory. Those transformations are written for a varied level of complexity.
+A good starter could be to checkout the [transformations] directory. Those transformations are written for a varied level of complexity. Also checkout the [AST Explorer](https://astexplorer.net/) website.
 
 A custom transformation (`my-custom-transformation.ts`) can be implemented via extending the `Transformation` class.
 

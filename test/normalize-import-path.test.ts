@@ -13,11 +13,12 @@ describe('normalize-import-path', () => {
     import {B} from "../b";
     `)
 
-    const actual = transform(
-      NormalizeImportPath,
-      {content: input, path: './src/file.ts'},
-      {module: 'components'}
-    )
+    const actual = transform({
+      transformationCtor: NormalizeImportPath,
+      content: input,
+      path: './src/file.ts',
+      params: {module: 'components'}
+    })
 
     assert.strictEqual(actual, expected)
   })
