@@ -49,7 +49,7 @@ Here above I have removed the unnecessary `../../../` from the import statement.
 
 1.  Create a `.tscodemodrc` file
 
-```json
+```jsonc
 {
   // name of the transformation
   "transformation": "normalize-import-path",
