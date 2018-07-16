@@ -21,7 +21,7 @@ import {a, b, c} from 'abc'
 
 **tscodemodrc:**
 
-```json
+```jsonc
 {
   "name": "normalize-import-path",
   "params": {
@@ -50,7 +50,7 @@ import {x, xx} from 'x'
 
 **tscodemodrc:**
 
-```json
+```jsonc
 {
   "name": "shift-imports",
   "params": {
