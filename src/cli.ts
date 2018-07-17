@@ -29,8 +29,7 @@ const {write, _: sourceFiles, transformation, params} = yargs
   })
   .option('params', {
     alias: 'p',
-    describe: 'Custom params to the transformation',
-    required: true
+    describe: 'Custom params to the transformation'
   })
   .help().argv
 
