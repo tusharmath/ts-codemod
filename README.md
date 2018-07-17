@@ -100,6 +100,34 @@ It can then be executed as —
 ts-codemod -t ./my-custom-transformation.ts src/**.ts
 ```
 
+**Passing Custom Params:**
+To pass custom params to your transformation can be done as follows —
+
+```ts
+export type MyParams = {
+  moduleName: string
+}
+// my-custom-transformation.ts
+export default class MyCustomTransformation extends Transformation<MyParams> {
+  apply(node: ts.Node): ts.VisitResult<ts.Node> {
+
+
+    // access the params
+    console.log(this.params.moduleName)
+
+    ...
+  }
+}
+```
+The additional params are passed via the `--params.moduleName` cli argument or if you are using a `.tscodemodrc` file —
+```json
+{
+  "params": {
+    "moduleName": "abc"
+  }
+}
+```
+
 ## Post Transformation
 
 1.  Life can't be that simple right? Running transformations will generally ruin the formatting of your files. A recommended way to solve that problem is by using [Prettier].
