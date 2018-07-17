@@ -86,7 +86,7 @@ myCustomFunction(1, 2, 3)
 
 **tscodemodrc:**
 
-```json
+```jsonc
 {
   "name": "array-to-rest-params",
   "params": {
