@@ -40,7 +40,7 @@ async function main() {
     await fs
       .readJSON(path.resolve(process.cwd(), '.tscodemodrc'))
       // handle when file is not available
-      .catch(() => ({})),
+      .catch(() => ({default: {}})),
     {transformation, params}
   )
 
