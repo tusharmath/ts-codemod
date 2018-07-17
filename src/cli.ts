@@ -38,7 +38,10 @@ async function main() {
   // read the config file
   const config: TSCodemodRC = Object.assign(
     {},
-    await fs.readJSON(path.resolve(process.cwd(), '.tscodemodrc')),
+    await fs
+      .readJSON(path.resolve(process.cwd(), '.tscodemodrc'))
+      // handle when file is not available
+      .catch(() => ({})),
     {transformation, params}
   )
 
