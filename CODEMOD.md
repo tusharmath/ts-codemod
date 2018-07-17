@@ -2,6 +2,7 @@
 
 - [normalize-import-path](#normalize-import-path)
 - [shift-imports](#shift-imports)
+- [array-to-rest-params](#array-to-rest-params)
 
 ## Normalize Import Path
 
@@ -63,6 +64,34 @@ import {x, xx} from 'x'
 
     // all the import specifiers that should be migrated
     "imports": ["x, "xx"]
+  }
+}
+```
+
+## Array to rest params
+
+Converts a function call that takes an argument of type `Array` into a function call where each element of the array is passed as a separate argument.
+
+**Input:**
+
+```ts
+myCustomFunction([1, 2, 3])
+```
+
+**Output:**
+
+```ts
+myCustomFunction(1, 2, 3)
+```
+
+**tscodemodrc:**
+
+```json
+{
+  "name": "array-to-rest-params",
+  "params": {
+    // name of the function to transform
+    "functionName": "myCustomFunction"
   }
 }
 ```
