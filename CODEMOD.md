@@ -68,7 +68,7 @@ import {x, xx} from 'x'
 }
 ```
 
-## Array to rest params
+## Array To Rest Params
 
 Converts a function call that takes an argument of type `Array` into a function call where each element of the array is passed as a separate argument.
 
