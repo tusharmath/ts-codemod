@@ -8,6 +8,6 @@ import {TransformationCtor} from './transform'
  */
 export const loadTransformationCtor = (name: string): TransformationCtor => {
   return name.match(/\.ts$/)
-    ? require(path.resolve(process.cwd(), name))
-    : require(path.resolve(__dirname, '../transformations', name))
+    ? require(path.resolve(process.cwd(), name)).default
+    : require(path.resolve(__dirname, '../transformations', name)).default
 }
