@@ -22,7 +22,7 @@ import {a, b, c} from 'abc'
 
 **tscodemodrc:**
 
-```jsonc
+```json5
 {
   "name": "normalize-import-path",
   "params": {
@@ -51,7 +51,7 @@ import {x, xx} from 'x'
 
 **tscodemodrc:**
 
-```jsonc
+```json5
 {
   "name": "shift-imports",
   "params": {
@@ -86,7 +86,7 @@ myCustomFunction(1, 2, 3)
 
 **tscodemodrc:**
 
-```jsonc
+```json5
 {
   "name": "array-to-rest-params",
   "params": {
