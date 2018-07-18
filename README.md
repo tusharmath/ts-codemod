@@ -49,7 +49,7 @@ Here I have removed the unnecessary `../../../` from the import statement. To ac
 
 1.  Create a `.tscodemodrc` file
 
-```jsonc
+```json5
 {
   // name of the transformation
   "transformation": "normalize-import-path",
@@ -120,7 +120,7 @@ export default class MyCustomTransformation extends Transformation<MyParams> {
 }
 ```
 The additional params are passed via the `--params.moduleName` cli argument or if you are using a `.tscodemodrc` file —
-```json
+```json5
 {
   "params": {
     "moduleName": "abc"
