@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import {forEachNode} from './for-each-node'
+import {curry2} from 'ts-curry'
 const debug = require('debug')('ts-codemod')
 
 export abstract class Transformation<T = {}> {
@@ -10,6 +10,13 @@ export abstract class Transformation<T = {}> {
   ) {}
 
   abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
+
+  forEach = (input: ts.Node): ts.VisitResult<ts.Node> => {
+    const node = this.visit(input)
+    return node instanceof Array
+      ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
+      : ts.visitEachChild(node, this.forEach, this.ctx)
+  }
 }
 
 export type TransformationCtor<Params = {}> = {
@@ -39,20 +46,12 @@ export const transform = <Params>(o: TransformOptions<Params>) => {
   )
 
   const transformed = ts.transform(sourceFile, [
-    (context: ts.TransformationContext) => (file: ts.SourceFile) => {
+    curry2((context: ts.TransformationContext, file: ts.SourceFile) => {
       const transformer = new o.transformationCtor(o.path, context, o.params)
       debug(`PARAMS:`, o.params)
-      const visitor: ts.Visitor = (node: ts.Node) => {
-        const visitResult = transformer.visit(node)
-        return visitResult ? forEachNode(visitor, visitResult, context) : node
-      }
       debug(`FILE: ${o.path}`)
-      return ts.visitEachChild(
-        transformer.visit(file) as ts.SourceFile,
-        visitor,
-        context
-      )
-    }
+      return transformer.forEach(file) as ts.SourceFile
+    })
   ])
   const printer = ts.createPrinter({newLine: ts.NewLineKind.LineFeed})
   const newContent = printer.printBundle(
