@@ -52,11 +52,11 @@ Here I have removed the unnecessary `../../../` from the import statement. To ac
 ```json5
 {
   // name of the transformation
-  "transformation": "normalize-import-path",
+  transformation: 'normalize-import-path',
 
   // transformation params
-  "params": {
-    "module": "component"
+  params: {
+    module: 'component'
   }
 }
 ```
@@ -124,8 +124,8 @@ The additional params are passed via the `--params.moduleName` cli argument or i
 
 ```json5
 {
-  "params": {
-    "moduleName": "abc"
+  params: {
+    moduleName: 'abc'
   }
 }
 ```

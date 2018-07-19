@@ -24,10 +24,10 @@ import {a, b, c} from 'abc'
 
 ```json5
 {
-  "name": "normalize-import-path",
-  "params": {
+  name: 'normalize-import-path',
+  params: {
     // name of the module
-    "module": "abc"
+    module: 'abc'
   }
 }
 ```
@@ -68,7 +68,7 @@ import {x, xx} from 'x'
 }
 ```
 
-## Array To Rest Params
+## Array to Rest Params
 
 Converts a function call that takes an argument of type `Array` into a function call where each element of the array is passed as a separate argument.
 
@@ -88,10 +88,38 @@ myCustomFunction(1, 2, 3)
 
 ```json5
 {
-  "name": "array-to-rest-params",
-  "params": {
+  name: 'array-to-rest-params',
+  params: {
     // name of the function to transform
-    "functionName": "myCustomFunction"
+    functionName: 'myCustomFunction'
+  }
+}
+```
+
+## Convert to Call
+
+Converts a value to a function call.
+
+**Input:**
+
+```ts
+const result = abc
+```
+
+**Output:**
+
+```ts
+const result = abc()
+```
+
+**.tscodemodrc**
+
+```json5
+{
+  name: 'convert-to-call',
+  params: {
+    // name of the identifier
+    name: 'abc'
   }
 }
 ```
