@@ -3,6 +3,7 @@
 - [normalize-import-path](#normalize-import-path)
 - [shift-imports](#shift-imports)
 - [array-to-rest-params](#array-to-rest-params)
+- [convert-to-call](#convert-to-call)
 
 ## Normalize Import Path
 
