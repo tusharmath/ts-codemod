@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as yargs from 'yargs'
 import {transformFile} from './transform-file'
 import * as fs from 'fs-extra'
+import * as R from 'ramda'
 import {loadTransformationCtor} from './load-transformation-ctor'
 
 const LOG = console.log
@@ -34,13 +35,15 @@ const {write, _: sourceFiles, transformation, params} = yargs
 
 async function main() {
   // read the config file
-  const config: TSCodemodRC = Object.assign(
-    {},
+  const config: TSCodemodRC = R.merge(
     await fs
       .readJSON(path.resolve(process.cwd(), '.tscodemodrc'))
-      // handle when file is not available
-      .catch(() => ({default: {}})),
-    {transformation, params}
+      .catch(() => ({})),
+    R.reject(R.isNil, {transformation, params})
+  )
+
+  LOG(
+    chalk.blue(`\n${chalk.bold('Transformation:')} ${config.transformation}\n`)
   )
 
   // dynamically decide between built-in vs custom transformation
