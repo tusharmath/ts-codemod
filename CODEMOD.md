@@ -20,7 +20,7 @@ import {a, b, c} from '../../../abc'
 import {a, b, c} from 'abc'
 ```
 
-**tscodemodrc:**
+**.tscodemodrc**
 
 ```json5
 {
@@ -49,7 +49,7 @@ import {a, b} from 'ab'
 import {x, xx} from 'x'
 ```
 
-**tscodemodrc:**
+**.tscodemodrc**
 
 ```json5
 {
@@ -84,7 +84,7 @@ myCustomFunction([1, 2, 3])
 myCustomFunction(1, 2, 3)
 ```
 
-**tscodemodrc:**
+**.tscodemodrc**
 
 ```json5
 {
