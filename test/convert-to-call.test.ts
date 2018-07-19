@@ -38,4 +38,24 @@ describe('convert-to-call', () => {
 
     assert.strictEqual(actual, expected)
   })
+
+  it('should not convert import specifiers to function call', () => {
+    const input = normalize(`
+    import {youGottaChangeMe} from 'abc'
+    const result = youGottaChangeMe
+    `)
+    const expected = normalize(`
+    import {youGottaChangeMe} from 'abc'
+    const result = youGottaChangeMe()
+    `)
+
+    const actual = transform({
+      transformationCtor: ConvertToCall,
+      content: input,
+      path: './src/file.ts',
+      params: {name: 'youGottaChangeMe'}
+    })
+
+    assert.strictEqual(actual, expected)
+  })
 })

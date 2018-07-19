@@ -9,16 +9,16 @@ export default class ConvertToCall extends Transformation<{
 }> {
   visit(node: ts.Node): ts.VisitResult<ts.Node> {
     if (
+      // check if its an identifier and not string/text
       ts.isIdentifier(node) &&
+      // check if the identifier matches the param
       node.text === this.params.name &&
-      /**
-       * This check makes sure that the iteration happen only till one level.
-       * A node that has not yet been attached will have parent set to undefined
-       */
-      node.parent
+      // special check for import specifiers
+      (node.parent && !ts.isImportSpecifier(node.parent))
     ) {
       return ts.createCall(ts.createIdentifier(this.params.name), undefined, [])
     }
+
     return node
   }
 }
