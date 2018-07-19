@@ -24,8 +24,7 @@ const {write, _: sourceFiles, transformation, params} = yargs
   .option('transformation', {
     alias: 't',
     type: 'string',
-    describe: 'Path or name of the transformation',
-    required: true
+    describe: 'Path or name of the transformation'
   })
   .option('params', {
     alias: 'p',
