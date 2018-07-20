@@ -18,7 +18,7 @@ describe('normalize-import-path', () => {
       content: input,
       path: './src/file.ts',
       params: {module: 'components'}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })

@@ -16,7 +16,7 @@ describe('array-to-rest-params', () => {
       content: input,
       path: './src/file.ts',
       params: {functionName: 'myCustomFunction'}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })

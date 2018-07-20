@@ -19,7 +19,7 @@ describe('shift-imports', () => {
       content: input,
       path: './src/file.ts',
       params: {from: 'a', to: 'x', imports: ['x', 'xx']}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })
@@ -39,7 +39,7 @@ describe('shift-imports', () => {
       content: input,
       path: './src/file.ts',
       params: {from: 'a', to: 'x', imports: ['x', 'xx']}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })
@@ -58,7 +58,7 @@ describe('shift-imports', () => {
       content: input,
       path: './src/file.ts',
       params: {from: 'a', to: 'x', imports: ['x', 'xx']}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })

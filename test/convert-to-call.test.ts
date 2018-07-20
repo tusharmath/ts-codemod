@@ -16,7 +16,7 @@ describe('convert-to-call', () => {
       content: input,
       path: './src/file.ts',
       params: {name: 'youGottaChangeMe'}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })
@@ -34,7 +34,7 @@ describe('convert-to-call', () => {
       content: input,
       path: './src/file.ts',
       params: {name: 'youGottaChangeMe'}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })
@@ -54,7 +54,7 @@ describe('convert-to-call', () => {
       content: input,
       path: './src/file.ts',
       params: {name: 'youGottaChangeMe'}
-    })
+    }).newContent
 
     assert.strictEqual(actual, expected)
   })
