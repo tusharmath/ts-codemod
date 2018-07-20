@@ -34,10 +34,18 @@ export type TransformOptions<Params> = {
   params: Params
 }
 
+export type TransformationResult = {
+  newContent: string
+  oldContent: string
+  sourceFile: ts.SourceFile
+}
+
 /**
  * Takes in a transformer + content and path and return a new content
  */
-export const transform = <Params>(o: TransformOptions<Params>) => {
+export const transform = <Params>(
+  o: TransformOptions<Params>
+): TransformationResult => {
   const sourceFile = ts.createSourceFile(
     o.path,
     o.content,
@@ -57,6 +65,8 @@ export const transform = <Params>(o: TransformOptions<Params>) => {
   const newContent = printer.printBundle(
     ts.createBundle(transformed.transformed)
   )
+
+  const oldContent = ts.createPrinter().printFile(sourceFile)
   transformed.dispose()
-  return newContent
+  return {newContent, oldContent, sourceFile}
 }

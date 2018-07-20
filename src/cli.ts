@@ -50,13 +50,13 @@ async function main() {
   const transformationCtor = loadTransformationCtor(config.transformation)
 
   const createSourceFile = async (path: string) => {
-    const {content} = await transformFile({
+    const {content, written} = await transformFile({
       transformationCtor: transformationCtor,
       write,
       path,
       params: config.params
     })
-    LOG(chalk.green(path))
+    if (written) LOG(chalk.green(path))
     if (!write) LOG(chalk.white(content))
   }
   return Promise.all(sourceFiles.map(createSourceFile))

@@ -16,16 +16,21 @@ export type CodeModParams<Params> = {
 }
 
 export async function transformFile<Params>(o: CodeModParams<Params>) {
+  let written = false
   const content = (await fs.readFile(o.path)).toString()
-  const newContent = transform<Params>({
+  const {newContent, oldContent} = transform<Params>({
     content,
     params: o.params,
     path: o.path,
     transformationCtor: o.transformationCtor
   })
-  if (o.write) await fs.writeFile(o.path, newContent)
+  if (o.write && oldContent !== newContent) {
+    await fs.writeFile(o.path, newContent)
+    written = true
+  }
   return {
     path: o.path,
-    content: newContent
+    content: newContent,
+    written
   }
 }
