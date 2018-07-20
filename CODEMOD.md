@@ -25,7 +25,7 @@ import {a, b, c} from 'abc'
 
 ```json5
 {
-  name: 'normalize-import-path',
+  transformation: 'normalize-import-path',
   params: {
     // name of the module
     module: 'abc'
@@ -54,17 +54,16 @@ import {x, xx} from 'x'
 
 ```json5
 {
-  "name": "shift-imports",
-  "params": {
-
+  transformation: 'shift-imports',
+  params: {
     // name of the source module
-    "from": "ab",
+    from: 'ab',
 
     // name of the target module
-    "to": "x",
+    to: 'x',
 
     // all the import specifiers that should be migrated
-    "imports": ["x", "xx"]
+    imports: ['x', 'xx']
   }
 }
 ```
@@ -89,10 +88,10 @@ myCustomFunction(1, 2, 3)
 
 ```json5
 {
-  name: 'array-to-rest-params',
+  transformation: 'array-to-rest-params',
   params: {
     // name of the function to transform
-    functionName: 'myCustomFunction'
+    functiontransformation: 'myCustomFunction'
   }
 }
 ```
@@ -117,10 +116,10 @@ const result = abc()
 
 ```json5
 {
-  name: 'convert-to-call',
+  transformation: 'convert-to-call',
   params: {
     // name of the identifier
-    name: 'abc'
+    transformation: 'abc'
   }
 }
 ```
