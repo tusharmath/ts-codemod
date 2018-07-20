@@ -64,7 +64,7 @@ import {x, xx} from 'x'
     "to": "x",
 
     // all the import specifiers that should be migrated
-    "imports": ["x, "xx"]
+    "imports": ["x", "xx"]
   }
 }
 ```
