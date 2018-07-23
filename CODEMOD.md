@@ -120,7 +120,7 @@ const result = abc()
   transformation: 'convert-to-call',
   params: {
     // name of the identifier
-    transformation: 'abc'
+    name: 'abc'
   }
 }
 ```
