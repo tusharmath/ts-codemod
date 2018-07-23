@@ -4,6 +4,7 @@
 - [shift-imports](#shift-imports)
 - [array-to-rest-params](#array-to-rest-params)
 - [convert-to-call](#convert-to-call)
+- [migrate-modules](#migrate-modules)
 
 ## Normalize Import Path
 
@@ -120,6 +121,36 @@ const result = abc()
   params: {
     // name of the identifier
     transformation: 'abc'
+  }
+}
+```
+
+## Migrate Modules
+
+Migrates module specifier
+
+**Input:**
+
+```ts
+import abc from 'abc'
+```
+
+**Output:**
+
+```ts
+import abc from 'abc-abc' // renamed the module specifier
+```
+
+**.tscodemodrc**
+
+```json5
+{
+  transformation: 'migrate-modules',
+  params: {
+    modules: {
+      // module map
+      abc: 'abc-abc'
+    }
   }
 }
 ```
