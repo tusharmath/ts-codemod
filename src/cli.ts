@@ -1,18 +1,11 @@
 import chalk from 'chalk'
-import * as path from 'path'
 import * as yargs from 'yargs'
 import {transformFile} from './transform-file'
-import * as fs from 'fs-extra'
 import * as R from 'ramda'
 import {loadTransformationCtor} from './load-transformation-ctor'
+import {loadRCFile, TSCodemodRC} from './load-tscodemodrc'
 
 const LOG = console.log
-
-type TSCodemodRC<Params = {}> = {
-  pattern: string
-  transformation: string
-  params: Params
-}
 
 // parse CLI args
 const {write, _: sourceFiles, transformation, params} = yargs
@@ -36,11 +29,12 @@ const {write, _: sourceFiles, transformation, params} = yargs
 async function main() {
   // read the config file
   const config: TSCodemodRC = R.merge(
-    await fs
-      .readJSON(path.resolve(process.cwd(), '.tscodemodrc'))
-      .catch(() => ({})),
+    await loadRCFile(),
     R.reject(R.isNil, {transformation, params})
   )
+  if (!config.transformation) {
+    return LOG(chalk.red(`Missing parameter: ${chalk.bold('transformation')}`))
+  }
 
   LOG(
     chalk.blue(`\n${chalk.bold('Transformation:')} ${config.transformation}\n`)
