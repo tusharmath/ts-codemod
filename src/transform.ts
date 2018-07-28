@@ -1,5 +1,6 @@
 import * as ts from 'typescript'
 import {curry2} from 'ts-curry'
+import {SCRIPT_TARGET} from './script-target'
 const debug = require('debug')('ts-codemod')
 
 export abstract class Transformation<T = {}> {
@@ -46,12 +47,7 @@ export type TransformationResult = {
 export const transform = <Params>(
   o: TransformOptions<Params>
 ): TransformationResult => {
-  const sourceFile = ts.createSourceFile(
-    o.path,
-    o.content,
-    ts.ScriptTarget.ES2017,
-    true
-  )
+  const sourceFile = ts.createSourceFile(o.path, o.content, SCRIPT_TARGET, true)
 
   const transformed = ts.transform(sourceFile, [
     curry2((context: ts.TransformationContext, file: ts.SourceFile) => {
