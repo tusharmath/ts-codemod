@@ -1,41 +1,10 @@
 import * as ts from 'typescript'
 import {curry2} from 'ts-curry'
 import {SCRIPT_TARGET} from './script-target'
-import {eqNode} from './eq-node'
+import {Transformation} from '..'
 const debug = require('debug')('ts-codemod')
 
-export abstract class Transformation<T = {}> {
-  constructor(
-    readonly path: string,
-    readonly ctx: ts.TransformationContext,
-    readonly params: T
-  ) {}
-
-  abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
-
-  forEach = (input: ts.Node): ts.VisitResult<ts.Node> => {
-    const node = this.visit(input)
-    return node instanceof Array
-      ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
-      : ts.visitEachChild(node, this.forEach, this.ctx)
-  }
-
-  toNode(template: string): ts.Node {
-    const statement = ts.createSourceFile(
-      '<unknown>',
-      template,
-      SCRIPT_TARGET,
-      true
-    ).statements[0] as ts.ExpressionStatement
-    return statement.expression
-  }
-
-  equal(a: ts.Node, b: ts.Node): boolean {
-    return eqNode(a, b)
-  }
-}
-
-export type TransformationCtor<Params = {}> = {
+export interface TransformationCtor<Params = {}> {
   new (
     path: string,
     ctx: ts.TransformationContext,
@@ -43,14 +12,14 @@ export type TransformationCtor<Params = {}> = {
   ): Transformation<Params>
 }
 
-export type TransformOptions<Params> = {
+export interface TransformOptions<Params> {
   content: string
   path: string
   transformationCtor: TransformationCtor<Params>
   params: Params
 }
 
-export type TransformationResult = {
+export interface TransformationResult {
   newContent: string
   oldContent: string
   sourceFile: ts.SourceFile
