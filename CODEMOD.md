@@ -180,7 +180,7 @@ const abc0 = K(a, b)(c)
   transformation: 'replace-node',
   params: {
     matchWith: 'a(b(c))',
-    replaceWith: 'R.compose(a, b)(c)'
+    replaceWith: 'K(a, b)(c)'
   }
 }
 ```
