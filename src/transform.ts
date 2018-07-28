@@ -1,6 +1,7 @@
 import * as ts from 'typescript'
 import {curry2} from 'ts-curry'
 import {SCRIPT_TARGET} from './script-target'
+import {eqNode} from './eq-node'
 const debug = require('debug')('ts-codemod')
 
 export abstract class Transformation<T = {}> {
@@ -17,6 +18,20 @@ export abstract class Transformation<T = {}> {
     return node instanceof Array
       ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
       : ts.visitEachChild(node, this.forEach, this.ctx)
+  }
+
+  toNode(template: string): ts.Node {
+    const statement = ts.createSourceFile(
+      '<unknown>',
+      template,
+      SCRIPT_TARGET,
+      true
+    ).statements[0] as ts.ExpressionStatement
+    return statement.expression
+  }
+
+  equal(a: ts.Node, b: ts.Node): boolean {
+    return eqNode(a, b)
   }
 }
 
@@ -44,9 +59,9 @@ export type TransformationResult = {
 /**
  * Takes in a transformer + content and path and return a new content
  */
-export const transform = <Params>(
+export function transform<Params>(
   o: TransformOptions<Params>
-): TransformationResult => {
+): TransformationResult {
   const sourceFile = ts.createSourceFile(o.path, o.content, SCRIPT_TARGET, true)
 
   const transformed = ts.transform(sourceFile, [
