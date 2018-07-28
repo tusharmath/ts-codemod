@@ -36,6 +36,7 @@ export function transform<Params>(
   const transformed = ts.transform(sourceFile, [
     curry2((context: ts.TransformationContext, file: ts.SourceFile) => {
       const transformer = new o.transformationCtor(o.path, context, o.params)
+      transformer.init()
       debug(`PARAMS:`, o.params)
       debug(`FILE: ${o.path}`)
       return transformer.forEach(file) as ts.SourceFile
