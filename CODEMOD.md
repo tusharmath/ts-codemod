@@ -5,6 +5,7 @@
 - [array-to-rest-params](#array-to-rest-params)
 - [convert-to-call](#convert-to-call)
 - [migrate-modules](#migrate-modules)
+- [replace-node](#replace-node)
 
 ## Normalize Import Path
 
@@ -151,6 +152,35 @@ import abc from 'abc-abc' // renamed the module specifier
       // module map
       abc: 'abc-abc'
     }
+  }
+}
+```
+
+## Replace Node
+
+Replaces a `ts.Node` with another one. It is kind of like search and replace but much more powerful.
+It ignores whitespaces and works directly on the AST.
+
+**Input:**
+
+```ts
+const abc = a(b(c))
+```
+
+**Output:**
+
+```ts
+const abc0 = K(a, b)(c)
+```
+
+**.tscodemodrc**
+
+```json5
+{
+  transformation: 'replace-node',
+  params: {
+    matchWith: 'a(b(c))',
+    replaceWith: 'R.compose(a, b)(c)'
   }
 }
 ```
