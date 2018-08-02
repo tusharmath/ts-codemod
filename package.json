@@ -32,6 +32,7 @@
     "url": "https://github.com/tusharmath/ts-codemod.git"
   },
   "devDependencies": {
+    "@types/debug": "^0.0.30",
     "@types/fs-extra": "^5.0.4",
     "@types/json5": "^0.0.29",
     "@types/mocha": "^5.2.5",
