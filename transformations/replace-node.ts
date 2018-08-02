@@ -1,5 +1,8 @@
 import {Transformation} from '..'
 import * as ts from 'typescript'
+const debug = require('debug')('ts-codemod:replace-node')
+
+const cName = (obj: any) => obj.constructor.name.replace('Object', '')
 
 export default class ReplaceNode extends Transformation<{
   matchWith: string
@@ -9,11 +12,24 @@ export default class ReplaceNode extends Transformation<{
   private replaceWith: ts.Node = ts.createEmptyStatement()
 
   init() {
-    this.matchWith = this.toNode(this.params.matchWith)
-    this.replaceWith = this.toNode(this.params.replaceWith)
+    const {matchWith, replaceWith} = this.params
+    this.matchWith = this.toNode(matchWith)
+    this.replaceWith = this.toNode(replaceWith)
+    debug('matchWith:', cName(this.matchWith), `'${matchWith}'`)
+    debug('replaceWith:', cName(this.replaceWith), `'${replaceWith}'`)
   }
 
   visit(node: ts.Node): ts.VisitResult<ts.Node> {
-    return this.equal(node, this.matchWith) ? this.replaceWith : node
+    debug('node:', cName(node), `'${node.getFullText()}'`)
+    if (this.equal(node, this.matchWith)) {
+      debug(
+        'replacing',
+        node.getFullText(),
+        'with',
+        this.replaceWith.getFullText()
+      )
+      return this.replaceWith
+    }
+    return node
   }
 }
