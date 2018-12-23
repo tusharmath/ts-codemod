@@ -139,7 +139,7 @@ The additional params are passed via the `--params.moduleName` cli argument or i
 2.  Even after running prettier its possible to have unnecessary new lines added/removed. This can be solved by ignoring white spaces while staging the changes in `git`.
 
 ```bash
-git diff --ignore-black-lines | git add --cached
+git diff --ignore-blank-lines | git apply --cached
 ```
 
 [prettier]: https://prettier.io
