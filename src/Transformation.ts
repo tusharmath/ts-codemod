@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
-import {SCRIPT_TARGET} from './script-target'
 import {eqNode} from './eq-node'
+import {SCRIPT_TARGET} from './script-target'
 
 export abstract class Transformation<T = {}> {
   constructor(
@@ -9,7 +9,9 @@ export abstract class Transformation<T = {}> {
     readonly params: T
   ) {}
 
-  init() {}
+  before() {}
+
+  after() {}
 
   abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
 

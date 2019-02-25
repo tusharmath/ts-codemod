@@ -1,7 +1,7 @@
-import * as ts from 'typescript'
 import {curry2} from 'ts-curry'
-import {SCRIPT_TARGET} from './script-target'
+import * as ts from 'typescript'
 import {Transformation} from '..'
+import {SCRIPT_TARGET} from './script-target'
 const debug = require('debug')('ts-codemod')
 
 export interface TransformationCtor<Params = {}> {
@@ -36,10 +36,13 @@ export function transform<Params>(
   const transformed = ts.transform(sourceFile, [
     curry2((context: ts.TransformationContext, file: ts.SourceFile) => {
       const transformer = new o.transformationCtor(o.path, context, o.params)
-      transformer.init()
+      transformer.before()
       debug(`PARAMS:`, o.params)
       debug(`FILE: ${o.path}`)
-      return transformer.forEach(file) as ts.SourceFile
+      const transformedFile = transformer.forEach(file) as ts.SourceFile
+
+      transformer.after()
+      return transformedFile
     })
   ])
   const printer = ts.createPrinter({newLine: ts.NewLineKind.LineFeed})
