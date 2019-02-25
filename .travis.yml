@@ -6,6 +6,9 @@ notifications:
   email: false
 node_js:
   - 'stable'
+before_script:
+  - yarn prettier
+  - yarn lint
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
 branches:

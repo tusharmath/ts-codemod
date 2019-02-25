@@ -9,7 +9,8 @@
     "prepublishOnly": "tsc -d",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once --pro",
-    "prettier": "git ls-files | grep '.ts$' | xargs prettier --write --config=.prettierrc"
+    "prettier": "git ls-files | grep -E '.*\\.(ts|md|json)$' | xargs prettier --write --config=.prettierrc",
+    "lint": "tslint --project ."
   },
   "author": "Tushar Mathur <tusharmath@gmail.com>",
   "license": "ISC",
@@ -43,7 +44,8 @@
     "mocha": "^6.0.1",
     "prettier": "^1.16.4",
     "semantic-release": "^15.13.3",
-    "travis-deploy-once": "^5.0.11"
+    "travis-deploy-once": "^5.0.11",
+    "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
     "chalk": "^2.4.2",
