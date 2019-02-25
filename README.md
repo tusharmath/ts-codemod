@@ -1,7 +1,7 @@
 # ts-codemod
+
 [![Build Status](https://travis-ci.com/tusharmath/ts-codemod.svg?branch=master)](https://travis-ci.com/tusharmath/ts-codemod)
 ![npm](https://img.shields.io/npm/v/ts-codemod.svg)
-
 
 Code-Modifier for Typescript based projects.
 
@@ -110,8 +110,15 @@ To pass custom params to your transformation can be done as follows —
 export type MyParams = {
   moduleName: string
 }
+
 // my-custom-transformation.ts
 export default class MyCustomTransformation extends Transformation<MyParams> {
+
+  // Called before the transformation is applied on the file
+  before () {
+
+  }
+
   apply(node: ts.Node): ts.VisitResult<ts.Node> {
 
 
@@ -119,6 +126,11 @@ export default class MyCustomTransformation extends Transformation<MyParams> {
     console.log(this.params.moduleName)
 
     ...
+  }
+
+  // Called after the transformation is applied on the file
+  after () {
+
   }
 }
 ```
