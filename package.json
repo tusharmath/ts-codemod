@@ -6,11 +6,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require=ts-node/register test/*.ts",
+    "lint": "tslint --project .",
     "prepublishOnly": "tsc -d",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once --pro",
     "prettier": "git ls-files | grep -E '.*\\.(ts|md|json)$' | xargs prettier --write --config=.prettierrc",
-    "lint": "tslint --project ."
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once --pro"
   },
   "author": "Tushar Mathur <tusharmath@gmail.com>",
   "license": "ISC",
