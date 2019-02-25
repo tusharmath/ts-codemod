@@ -2,6 +2,9 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "strict": true
+    "strict": true,
+    "plugins": [
+      {"name": "typescript-tslint-plugin", "configFile": "./tslint.json"}
+    ]
   }
 }
