@@ -1,6 +1,6 @@
 import * as assert from 'assert'
+import {normalize, transform} from '..'
 import ShiftImports from '../transformations/shift-imports'
-import {transform, normalize} from '..'
 
 describe('shift-imports', () => {
   it('should migrate imports from one module to another', () => {

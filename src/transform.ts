@@ -4,22 +4,20 @@ import {Transformation} from '..'
 import {SCRIPT_TARGET} from './script-target'
 const debug = require('debug')('ts-codemod')
 
-export interface TransformationCtor<Params = {}> {
-  new (
-    path: string,
-    ctx: ts.TransformationContext,
-    params: Params
-  ): Transformation<Params>
-}
+export type TransformationCtor<Params = {}> = new (
+  path: string,
+  ctx: ts.TransformationContext,
+  params: Params
+) => Transformation<Params>
 
-export interface TransformOptions<Params> {
+export interface ITransformOptions<Params> {
   content: string
   path: string
   transformationCtor: TransformationCtor<Params>
   params: Params
 }
 
-export interface TransformationResult {
+export interface ITransformationResult {
   newContent: string
   oldContent: string
   sourceFile: ts.SourceFile
@@ -29,8 +27,8 @@ export interface TransformationResult {
  * Takes in a transformer + content and path and return a new content
  */
 export function transform<Params>(
-  o: TransformOptions<Params>
-): TransformationResult {
+  o: ITransformOptions<Params>
+): ITransformationResult {
   const sourceFile = ts.createSourceFile(o.path, o.content, SCRIPT_TARGET, true)
 
   const transformed = ts.transform(sourceFile, [

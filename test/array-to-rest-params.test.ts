@@ -1,6 +1,6 @@
 import * as assert from 'assert'
+import {normalize, transform} from '..'
 import ArrayToRestParams from '../transformations/array-to-rest-params'
-import {transform, normalize} from '..'
 
 describe('array-to-rest-params', () => {
   it('converts a function call from array to rest param', () => {

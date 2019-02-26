@@ -1,5 +1,5 @@
-import {Transformation} from '..'
 import * as ts from 'typescript'
+import {Transformation} from '..'
 
 /**
  * Converts a value usage to a function call
@@ -7,7 +7,7 @@ import * as ts from 'typescript'
 export default class ConvertToCall extends Transformation<{
   name: string
 }> {
-  visit(node: ts.Node): ts.VisitResult<ts.Node> {
+  public visit(node: ts.Node): ts.VisitResult<ts.Node> {
     if (
       // check if its an identifier and not string/text
       ts.isIdentifier(node) &&

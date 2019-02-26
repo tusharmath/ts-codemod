@@ -1,6 +1,6 @@
 import * as assert from 'assert'
+import {normalize, transform} from '..'
 import ReplaceNode from '../transformations/replace-node'
-import {transform, normalize} from '..'
 
 describe('replace-node', () => {
   it('should convert node of one type to another', () => {

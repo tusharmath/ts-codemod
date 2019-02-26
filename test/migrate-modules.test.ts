@@ -1,6 +1,6 @@
+import * as assert from 'assert'
 import {normalize, transform} from '../index'
 import MigrateModules from '../transformations/migrate-modules'
-import * as assert from 'assert'
 
 /**
  * Created by tushar on 23/07/18

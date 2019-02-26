@@ -1,10 +1,10 @@
-import {Transformation} from '..'
 import * as ts from 'typescript'
+import {Transformation} from '..'
 
 export default class ArrayToRestParams extends Transformation<{
   functionName: string
 }> {
-  visit(node: ts.Node): ts.VisitResult<ts.Node> {
+  public visit(node: ts.Node): ts.VisitResult<ts.Node> {
     if (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&

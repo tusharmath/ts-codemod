@@ -1,5 +1,5 @@
-import {Transformation} from '..'
 import * as ts from 'typescript'
+import {Transformation} from '..'
 const debug = require('debug')('ts-codemod:shift-imports')
 
 export default class extends Transformation<{
@@ -7,7 +7,7 @@ export default class extends Transformation<{
   to: string
   imports: string[]
 }> {
-  visit(node: ts.Node): ts.VisitResult<ts.Node> {
+  public visit(node: ts.Node): ts.VisitResult<ts.Node> {
     if (
       /**
        * Check if its an import dec
