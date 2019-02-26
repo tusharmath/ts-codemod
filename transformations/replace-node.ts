@@ -11,7 +11,7 @@ export default class ReplaceNode extends Transformation<{
   private matchWith: ts.Node = ts.createEmptyStatement()
   private replaceWith: ts.Node = ts.createEmptyStatement()
 
-  init() {
+  before() {
     const {matchWith, replaceWith} = this.params
     this.matchWith = this.toNode(matchWith)
     this.replaceWith = this.toNode(replaceWith)
