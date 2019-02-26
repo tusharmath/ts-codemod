@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:all", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
     "typedef": [
       true,
@@ -10,10 +10,9 @@
     ],
     "no-any": true,
     "no-inferred-empty-object-type": true,
-    "completed-docs": false,
-    "comment-format": false,
-    "file-name-casing": [true, "kebab-case"],
-    "interface-over-type-literal": false
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "no-empty": false
   },
   "rulesDirectory": []
 }
