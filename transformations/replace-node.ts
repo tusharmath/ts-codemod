@@ -1,8 +1,8 @@
-import {Transformation} from '..'
 import * as ts from 'typescript'
+import {Transformation} from '..'
 const debug = require('debug')('ts-codemod:replace-node')
 
-const cName = (obj: any) => obj.constructor.name.replace('Object', '')
+const cName = (obj: object) => obj.constructor.name.replace('Object', '')
 
 export default class ReplaceNode extends Transformation<{
   matchWith: string
@@ -11,7 +11,7 @@ export default class ReplaceNode extends Transformation<{
   private matchWith: ts.Node = ts.createEmptyStatement()
   private replaceWith: ts.Node = ts.createEmptyStatement()
 
-  before() {
+  public before(): void {
     const {matchWith, replaceWith} = this.params
     this.matchWith = this.toNode(matchWith)
     this.replaceWith = this.toNode(replaceWith)
@@ -19,7 +19,7 @@ export default class ReplaceNode extends Transformation<{
     debug('replaceWith:', cName(this.replaceWith), `'${replaceWith}'`)
   }
 
-  visit(node: ts.Node): ts.VisitResult<ts.Node> {
+  public visit(node: ts.Node): ts.VisitResult<ts.Node> {
     debug('node:', cName(node), `'${node.getFullText()}'`)
     if (this.equal(node, this.matchWith)) {
       debug(

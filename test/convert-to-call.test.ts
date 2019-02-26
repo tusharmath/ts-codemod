@@ -1,6 +1,6 @@
 import * as assert from 'assert'
+import {normalize, transform} from '..'
 import ConvertToCall from '../transformations/convert-to-call'
-import {transform, normalize} from '..'
 
 describe('convert-to-call', () => {
   it('should convert arg to a function call', () => {

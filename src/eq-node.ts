@@ -13,26 +13,30 @@ function eqChildren(a: ts.Node, b: ts.Node): boolean {
     const result = a
       .getChildren()
       .every((aChild, id) => eqNode(b.getChildAt(id), aChild))
-    if (result)
+    if (result) {
       debug('children:', `'${a.getFullText()}'`, `'${b.getFullText()}'`)
+    }
     return result
   }
   return false
 }
 
-function eqKind(a: ts.Node, b: ts.Node) {
+function eqKind(a: ts.Node, b: ts.Node): boolean {
   const result = a.kind === b.kind
-  if (result) debug('kind:', `'${a.getFullText()}'`, `'${b.getFullText()}'`)
-  if (result) return result
+  if (result) {
+    debug('kind:', `'${a.getFullText()}'`, `'${b.getFullText()}'`)
+  }
+  return result
 }
 
 function eqIdentifier(a: ts.Node, b: ts.Node): boolean {
   const result = ts.isIdentifier(a) && ts.isIdentifier(b) && a.text === b.text
-  if (result)
+  if (result) {
     debug('identifier:', `'${a.getFullText()}'`, `'${b.getFullText()}'`)
+  }
   return result
 }
 
-function strictlyEq(a: ts.Node, b: ts.Node) {
+function strictlyEq(a: ts.Node, b: ts.Node): boolean {
   return a === b
 }

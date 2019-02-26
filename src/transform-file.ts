@@ -2,20 +2,18 @@
  * Created by tushar on 01/06/18
  */
 import * as fs from 'fs-extra'
-import {TransformationCtor, transform} from './transform'
+import {transform, TransformationCtor} from './transform'
 
-const DEFAULT_PARAMS = {
-  write: false
-}
-
-export type CodeModParams<Params> = {
+export interface ICodeModParams<Params> {
   path: string
   write?: boolean
   transformationCtor: TransformationCtor<Params>
   params: Params
 }
 
-export async function transformFile<Params>(o: CodeModParams<Params>) {
+export async function transformFile<Params>(
+  o: ICodeModParams<Params>
+): Promise<{path: string; written: boolean; content: string}> {
   let written = false
   const content = (await fs.readFile(o.path)).toString()
   const {newContent, oldContent} = transform<Params>({

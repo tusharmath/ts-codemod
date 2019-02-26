@@ -1,10 +1,11 @@
 import chalk from 'chalk'
-import * as yargs from 'yargs'
-import {transformFile} from './transform-file'
 import * as R from 'ramda'
+import * as yargs from 'yargs'
 import {loadTransformationCtor} from './load-transformation-ctor'
-import {loadRCFile, TSCodemodRC} from './load-tscodemodrc'
+import {ITSCodemodRC, loadRCFile} from './load-tscodemodrc'
+import {transformFile} from './transform-file'
 
+// tslint:disable-next-line:no-console
 const LOG = console.log
 
 // parse CLI args
@@ -26,9 +27,9 @@ const {write, _: sourceFiles, transformation, params} = yargs
   })
   .help().argv
 
-async function main() {
+async function main(): Promise<void> {
   // read the config file
-  const config: TSCodemodRC = R.merge(
+  const config: ITSCodemodRC = R.merge(
     await loadRCFile(),
     R.reject(R.isNil, {transformation, params})
   )
@@ -41,22 +42,28 @@ async function main() {
   )
 
   // dynamically decide between built-in vs custom transformation
-  const transformationCtor = loadTransformationCtor(config.transformation)
+  const transformationCtor = loadTransformationCtor<object>(
+    config.transformation
+  )
 
   const createSourceFile = async (path: string) => {
     const {content, written} = await transformFile({
-      transformationCtor: transformationCtor,
+      transformationCtor,
       write,
       path,
       params: config.params
     })
-    if (written) LOG(chalk.green(path))
-    if (!write) LOG(chalk.white(content))
+    if (written) {
+      LOG(chalk.green(path))
+    }
+    if (!write) {
+      LOG(chalk.white(content))
+    }
   }
-  return Promise.all(sourceFiles.map(createSourceFile))
+  await Promise.all(sourceFiles.map(createSourceFile))
 }
 
 main().catch(err => {
-  console.log(err)
+  LOG(err)
   process.exit(1)
 })

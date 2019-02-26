@@ -9,20 +9,20 @@ export abstract class Transformation<T = {}> {
     readonly params: T
   ) {}
 
-  before() {}
+  public before(): void {}
 
-  after() {}
+  public after(): void {}
 
-  abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
+  public abstract visit(node: ts.Node): ts.VisitResult<ts.Node>
 
-  forEach = (input: ts.Node): ts.VisitResult<ts.Node> => {
+  public forEach = (input: ts.Node): ts.VisitResult<ts.Node> => {
     const node = this.visit(input)
     return node instanceof Array
       ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
       : ts.visitEachChild(node, this.forEach, this.ctx)
   }
 
-  toNode(template: string): ts.Node {
+  public toNode(template: string): ts.Node {
     const statement = ts.createSourceFile(
       '<unknown>',
       template,
@@ -32,7 +32,7 @@ export abstract class Transformation<T = {}> {
     return statement.expression
   }
 
-  equal(a: ts.Node, b: ts.Node): boolean {
+  public equal(a: ts.Node, b: ts.Node): boolean {
     return eqNode(a, b)
   }
 }
