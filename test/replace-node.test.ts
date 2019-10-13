@@ -42,4 +42,25 @@ describe('replace-node', () => {
     }).newContent
     assert.strictEqual(actual, expected)
   })
+
+  it('should not fall into a loop if replaceWith contains a subset of matchWith', () => {
+    const input = normalize(`
+      function doAction (params) {
+        console.log(params.inputValue)
+      }
+    `)
+    const expected = normalize(`
+      function doAction (params) {
+        console.log(params && params.inputValue)
+      }
+    `)
+    
+    const actual = transform({
+      transformationCtor: ReplaceNode,
+      content: input,
+      path: './src/file.ts',
+      params: {matchWith: 'params.inputValue', replaceWith: 'params && params.inputValue'}
+    }).newContent
+    assert.strictEqual(actual, expected)
+  })
 })
