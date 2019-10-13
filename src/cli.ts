@@ -29,10 +29,10 @@ const {write, _: sourceFiles, transformation, params} = yargs
 
 async function main(): Promise<void> {
   // read the config file
-  const config: ITSCodemodRC = R.merge(
+  const config = R.merge(
     await loadRCFile(),
     R.reject(R.isNil, {transformation, params})
-  )
+  ) as ITSCodemodRC
   if (!config.transformation) {
     return LOG(chalk.red(`Missing parameter: ${chalk.bold('transformation')}`))
   }
