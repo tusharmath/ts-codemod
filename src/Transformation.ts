@@ -17,9 +17,14 @@ export abstract class Transformation<T = {}> {
 
   public forEach = (input: ts.Node): ts.VisitResult<ts.Node> => {
     const node = this.visit(input)
-    return node instanceof Array
-      ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
-      : ts.visitEachChild(node, this.forEach, this.ctx)
+
+    if (node === input) {
+      return node instanceof Array
+        ? node.map(_ => ts.visitEachChild(_, this.forEach, this.ctx))
+        : ts.visitEachChild(node, this.forEach, this.ctx)
+    }
+
+    return node
   }
 
   public toNode(template: string): ts.Node {

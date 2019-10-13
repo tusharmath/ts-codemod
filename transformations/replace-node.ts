@@ -10,7 +10,6 @@ export default class ReplaceNode extends Transformation<{
 }> {
   private matchWith: ts.Node = ts.createEmptyStatement()
   private replaceWith: ts.Node = ts.createEmptyStatement()
-  private skipCount: number = 0
 
   public before(): void {
     const {matchWith, replaceWith} = this.params
@@ -22,15 +21,13 @@ export default class ReplaceNode extends Transformation<{
 
   public visit(node: ts.Node): ts.VisitResult<ts.Node> {
     debug('node:', cName(node), `'${node.getFullText()}'`)
-    debug(`skipCount: ${this.skipCount}`)
-    if (this.skipCount <= 0 && this.equal(node, this.matchWith)) {
+    if (this.equal(node, this.matchWith)) {
       debug(
         'replacing',
         node.getFullText(),
         'with',
         this.replaceWith.getFullText()
       )
-      this.skipCount = this.replaceWith.getChildren().length
       return this.replaceWith
     }
     return node
