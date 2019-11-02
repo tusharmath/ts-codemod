@@ -90,7 +90,7 @@ import {Transformation} from 'ts-codemod'
 
 // my-custom-transformation.ts
 export default class MyCustomTransformation extends Transformation {
-  apply(node: ts.Node): ts.VisitResult<ts.Node> {
+  visit(node: ts.Node): ts.VisitResult<ts.Node> {
     // write your implementation here
     return node // will apply no-change
   }
@@ -119,7 +119,7 @@ export default class MyCustomTransformation extends Transformation<MyParams> {
 
   }
 
-  apply(node: ts.Node): ts.VisitResult<ts.Node> {
+  visit(node: ts.Node): ts.VisitResult<ts.Node> {
 
 
     // access the params
