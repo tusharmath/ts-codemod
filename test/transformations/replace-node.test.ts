@@ -1,6 +1,6 @@
 import * as assert from 'assert'
-import {normalize, transform} from '..'
-import ReplaceNode from '../transformations/replace-node'
+import {normalize, transform} from '../..'
+import ReplaceNode from '../../transformations/replace-node'
 
 describe('replace-node', () => {
   it('should convert node of one type to another', () => {
@@ -54,12 +54,15 @@ describe('replace-node', () => {
         console.log(params && params.inputValue)
       }
     `)
-    
+
     const actual = transform({
       transformationCtor: ReplaceNode,
       content: input,
       path: './src/file.ts',
-      params: {matchWith: 'params.inputValue', replaceWith: 'params && params.inputValue'}
+      params: {
+        matchWith: 'params.inputValue',
+        replaceWith: 'params && params.inputValue'
+      }
     }).newContent
     assert.strictEqual(actual, expected)
   })

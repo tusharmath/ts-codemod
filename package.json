@@ -5,7 +5,7 @@
   "description": "Code-Modifier for Typescript based projects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require=ts-node/register test/*.ts",
+    "test": "mocha --require=ts-node/register test/**/*.ts",
     "lint": "tslint --project .",
     "prepublishOnly": "tsc -d",
     "prettier": "git ls-files | grep -E '.*\\.(ts|md|json)$' | xargs prettier --write --config=.prettierrc",

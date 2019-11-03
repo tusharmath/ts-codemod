@@ -1,6 +1,6 @@
 import * as assert from 'assert'
-import {normalize, transform} from '..'
-import NormalizeImportPath from '../transformations/normalize-import-path'
+import {normalize, transform} from '../..'
+import NormalizeImportPath from '../../transformations/normalize-import-path'
 
 describe('normalize-import-path', () => {
   it('should convert relative path to module path', () => {
