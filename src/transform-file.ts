@@ -3,6 +3,7 @@
  */
 import * as fs from 'fs-extra'
 import {transform, TransformationCtor} from './transform'
+const debug = require('debug')('ts-codemod')
 
 export interface ICodeModParams<Params> {
   path: string
@@ -16,12 +17,15 @@ export async function transformFile<Params>(
 ): Promise<{path: string; written: boolean; content: string}> {
   let written = false
   const content = (await fs.readFile(o.path)).toString()
+  debug('ORIGINAL FILE\n', content)
   const {newContent, oldContent} = transform<Params>({
     content,
     params: o.params,
     path: o.path,
     transformationCtor: o.transformationCtor
   })
+
+  debug('NEW FILE\n', newContent)
   if (o.write && oldContent !== newContent) {
     await fs.writeFile(o.path, newContent)
     written = true

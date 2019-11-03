@@ -1,13 +1,16 @@
 import * as ts from 'typescript'
 import {eqNode} from './eq-node'
 import {SCRIPT_TARGET} from './script-target'
+const debug = require('debug')('ts-codemod')
 
 export abstract class Transformation<T = {}> {
   constructor(
     readonly path: string,
     readonly ctx: ts.TransformationContext,
     readonly params: T
-  ) {}
+  ) {
+    debug('TRANSFORMATION CREATED', path)
+  }
 
   public before(): void {}
 
